@@ -1,0 +1,66 @@
+/* Tests Performed */
+
+1. Test creating new alarm.
+	Sample input:
+		Start_Alarm(2345): Group(13) 50 One
+
+	Intended behaviour:
+		The request is legal according with the requirements specifications and therefore will be inserted into the alarm list.
+		After the specified time alarm time has passed, the alarm will be removed from the alarm list.
+
+	Produced output:
+		Alarm> Start_Alarm(2345): Group(13) 50 One
+		Inserting new alarm with ID 2345 and group ID 13
+		Display alarm thread 123145529004032 woke up for processing
+		Main Thread Created New Display Alarm Thread 123145529004032 For Alarm(2345) at 22:28:44: Group(13) One
+		Alarm(2345) Inserted by Main Thread 140704651035840 Into Alarm List at 22:28:44: Group(13) One
+		Alarm> Signaling display thread with ID 123145529004032 for alarm ID 2345
+		Alarm Monitor Thread 123145528467456 Has Removed Alarm(2345) at 22:27:55: Group(13) One
+
+
+2. Test adding another alarm with same alarm_id.
+	Sample input:
+		Start_Alarm(2345): Group(13) 10 One
+		Start_Alarm(2345): Group(10) 5 Two
+
+	Intended behaviour:
+		The first input is legal and will be inserted into the alarm list.
+		The second input, however, is not allowe, and the program should discard the atempt 
+		After the specified time alarm time has passed, the alarm will be removed from the list.
+	
+	Produced output:
+		Alarm> Start_Alarm(2345): Group(13) 10 One
+		Inserting new alarm with ID 2345 and group ID 13
+		Display alarm thread 123145457070080 woke up for processing
+		Main Thread Created New Display Alarm Thread 123145457070080 For Alarm(2345) at 22:36:23: Group(13) One
+
+		Alarm(2345) Inserted by Main Thread 140704651035840 Into Alarm List at 22:36:23: Group(13) One
+
+		Alarm> Start_Alarm(2345): Group(10) 5 Two
+		Alarm with ID 2345 already exists. Ignoring command.
+		Alarm> Signaling display thread with ID 123145457070080 for alarm ID 2345
+		Alarm Monitor Thread 123145456533504 Has Removed Alarm(2345) at 22:36:14: Group(13) One
+
+
+3. Test changing the alarm when none exist.
+	Sample input:
+		Change_Alarm(2345): Group(10) 5 One
+
+	Intended behaviour:
+		The system should not allow the following request, and notify the user of the illegal request
+
+	Produced output:
+		Due to bugs in the code, the output to the sample input could not be produced.
+
+
+4. Test changing the alarm.
+	Sample input:
+		Start_Alarm(2345): Group(13) 10 One
+		Change_Alarm(2345): Group(10) 5 Two
+
+	Intended behaviour:
+		The alarm from the first input will be inserted into the alarm list.
+		The second input, should change the time of the previous alarm to the new value.
+
+	Produced output:
+		Due to bugs in the code, the output to the sample input could not be produced.
